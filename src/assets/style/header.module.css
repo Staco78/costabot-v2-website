@@ -1,0 +1,19 @@
+:local(.header) {
+    padding: 4px;
+    height: calc(var(--header_height) + 8px);
+    background-color: var(--header-color);
+    display: flex;
+    align-items: center;
+}
+
+:local(.img) {
+    height: var(--header_height);
+}
+
+:local(.links) {
+    display: flex;
+    justify-content: space-evenly;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+}

@@ -1,0 +1,4 @@
+:local(.home) {
+    background-color: yellow;
+    background-color: var(--primary);
+}
