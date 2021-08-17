@@ -1,11 +1,11 @@
 namespace Client {
     let changeListeners: ((client: ClientInfos) => void)[] = [];
+    let client: ClientInfos | null = null;
+
+    export let state = 0;
 
     export function getInfos(): ClientInfos | null {
-        const client = localStorage.getItem("client");
-        if (client === null) return client;
-
-        return JSON.parse(client);
+        return client;
     }
 
     export function addChangeListener(listener: (client: ClientInfos) => void) {
@@ -21,20 +21,47 @@ namespace Client {
     }
 
     export async function update() {
+        state = 1;
+
         const token = getTokenCookie();
 
         if (!token) return;
 
         const infos = await getInfoFromDiscord(token);
 
+        client = infos;
+
+        state = 2;
+
         changeListeners.forEach(listener => listener(infos));
+    }
+
+    export function waitUpdate(): Promise<void> {
+        return new Promise(async resolve => {
+            if (state === 0) {
+                update().then(resolve);
+            }
+            if (state === 1) {
+                addChangeListener(listener);
+            }
+            if (state === 2) resolve();
+
+            function listener() {
+                resolve();
+                removeChangeListener(listener);
+            }
+        });
     }
 
     async function getInfoFromDiscord(token: string): Promise<ClientInfos> {
         const response = await fetch("https://discord.com/api/v9/users/@me", { headers: { Authorization: `Bearer ${token}` } });
-        const json = await response.json();
 
-        console.log(json);
+        if (response.status !== 200) {
+            throw new Error("Discord unauthorized");
+        }
+
+        const json = await response.json();
+        json.token = token;
 
         return json;
     }

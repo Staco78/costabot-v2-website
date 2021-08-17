@@ -1,0 +1,25 @@
+:local(.icon) {
+    border-radius: 50%;
+    height: 60px;
+    width: 60px;
+    margin-right: 25px;
+}
+
+:local(.container) {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+:local(.container):hover {
+    background-color: var(--primary);
+}
+
+:local(.server_info_container) {
+    display: flex;
+    align-items: center;
+}

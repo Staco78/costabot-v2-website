@@ -1,15 +1,24 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+
 * {
     margin: 0px;
     box-sizing: border-box;
+    font-family: "Montserrat";
+    color: white;
+}
+
+body {
+    background-color: var(--primary-background);
 }
 
 a {
-    color: white;
     text-decoration: none;
 }
 
 :root {
-    --header_height: 8ch;
-    --header-color: rgba(35, 39, 42, 0.8);
-    --primary: #23272a;
+    --header_height: 5ch;
+    --header-color: #23272a;
+    --primary-background: #2a2d2e;
+    --primary: #3e4049;
+    --primary-hover: #53555d;
 }

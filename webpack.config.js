@@ -29,6 +29,7 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             template: "./src/index.html",
+            publicPath: "/"
         }),
         new CopyPLugin({
             patterns: [{ from: path.resolve(__dirname, "src", "assets"), to: path.resolve(__dirname, "dist", "assets") }],

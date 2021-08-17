@@ -1,0 +1,13 @@
+:local(.button) {
+    height: 40px;
+    width: 100px;
+    border: 0;
+    color: white;
+    background-color: var(--primary);
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+:local(.button):hover {
+    background-color: var(--primary-hover);
+}

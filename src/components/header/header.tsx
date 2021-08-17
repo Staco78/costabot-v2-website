@@ -3,15 +3,11 @@ import { BrowserRouter as Router, Link } from "react-router-dom";
 
 import css from "@/assets/style/header.module.css";
 import AccountLink from "./accountLink";
-import Client from "@/data/client";
 
 export default class Header extends React.Component {
     constructor(props: any) {
         super(props);
-
     }
-
-    
 
     render() {
         return (
@@ -21,6 +17,7 @@ export default class Header extends React.Component {
                 </Link>
                 <div className={css.links}>
                     <Link to="/bot">Bot</Link>
+                    <Link to="/servers">Serveurs</Link>
                     <AccountLink></AccountLink>
                 </div>
             </div>
