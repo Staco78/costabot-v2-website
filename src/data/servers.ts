@@ -1,8 +1,11 @@
 import Client from "./client";
 
+import type { APIPartialGuild } from "discord-api-types";
+
+
 namespace Servers {
-    export let servers: GuildInfos[] = [];
-    let onChangeListeners: ((server: GuildInfos[]) => void)[] = [];
+    export let servers: APIPartialGuild[] = [];
+    let onChangeListeners: ((server: APIPartialGuild[]) => void)[] = [];
 
     export let state: 0 | 1 | 2 = 0;
 
@@ -42,11 +45,11 @@ namespace Servers {
         });
     }
 
-    export function addChangeListener(listener: (servers: GuildInfos[]) => void) {
+    export function addChangeListener(listener: (servers: APIPartialGuild[]) => void) {
         onChangeListeners.push(listener);
     }
 
-    export function removeChangeListener(listener: (servers: GuildInfos[]) => void) {
+    export function removeChangeListener(listener: (servers: APIPartialGuild[]) => void) {
         const index = onChangeListeners.findIndex(value => listener === value);
 
         if (index === -1) throw new Error("Listener not found");
@@ -54,7 +57,7 @@ namespace Servers {
         onChangeListeners.splice(index);
     }
 
-    export async function get(id: string): Promise<GuildInfos> {
+    export async function get(id: string): Promise<APIPartialGuild> {
         await waitUpdate();
 
         const server = servers.find(server => server.id === id);

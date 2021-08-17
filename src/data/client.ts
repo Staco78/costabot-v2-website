@@ -1,18 +1,25 @@
+import type { APIUser } from "discord-api-types";
+
+declare interface User extends APIUser {
+    token: string;
+}
+
+
 namespace Client {
-    let changeListeners: ((client: ClientInfos) => void)[] = [];
-    let client: ClientInfos | null = null;
+    let changeListeners: ((client: User) => void)[] = [];
+    let client: User | null = null;
 
     export let state = 0;
 
-    export function getInfos(): ClientInfos | null {
+    export function getInfos(): User | null {
         return client;
     }
 
-    export function addChangeListener(listener: (client: ClientInfos) => void) {
+    export function addChangeListener(listener: (client: User) => void) {
         changeListeners.push(listener);
     }
 
-    export function removeChangeListener(listener: (client: ClientInfos) => void) {
+    export function removeChangeListener(listener: (client: User) => void) {
         const index = changeListeners.findIndex(value => listener === value);
 
         if (index === -1) throw new Error("Listener not found");
@@ -53,7 +60,7 @@ namespace Client {
         });
     }
 
-    async function getInfoFromDiscord(token: string): Promise<ClientInfos> {
+    async function getInfoFromDiscord(token: string): Promise<User> {
         const response = await fetch("https://discord.com/api/v9/users/@me", { headers: { Authorization: `Bearer ${token}` } });
 
         if (response.status !== 200) {

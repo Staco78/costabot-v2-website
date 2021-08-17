@@ -2,11 +2,12 @@ import React from "react";
 
 import css from "@/assets/style/serverSelect.module.css";
 import { Link } from "react-router-dom";
+import type { APIPartialGuild } from "discord-api-types";
 
 export default class ServerSelect extends React.Component {
-    declare readonly props: { children?: React.ReactNode; server: GuildInfos };
+    declare readonly props: { children?: React.ReactNode; server: APIPartialGuild };
 
-    constructor(props: { server: GuildInfos }) {
+    constructor(props: { server: APIPartialGuild }) {
         super(props);
     }
 

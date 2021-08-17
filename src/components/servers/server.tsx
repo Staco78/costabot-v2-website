@@ -1,11 +1,12 @@
 import Servers from "@/data/servers";
 import React from "react";
 import { withRouter } from "react-router-dom";
+import type { APIPartialGuild } from "discord-api-types";
 
 class Server extends React.Component {
     declare readonly props: { id: string };
 
-    readonly state: { serverData: GuildInfos | null; notFound: boolean };
+    readonly state: { serverData: APIPartialGuild | null; notFound: boolean };
 
     constructor(props: any) {
         super(props);

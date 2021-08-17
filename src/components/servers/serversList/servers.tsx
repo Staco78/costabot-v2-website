@@ -3,13 +3,15 @@ import DataServers from "@/data/servers";
 import { clientContext } from "@/contexts";
 import ServerSelect from "./serverSelect";
 
+import type { APIPartialGuild } from "discord-api-types";
+
 import css from "@/assets/style/servers.module.css";
 
 export default class Servers extends React.Component {
     static contextType = clientContext;
     declare context: React.ContextType<typeof clientContext>;
 
-    readonly state: { servers: GuildInfos[] };
+    readonly state: { servers: APIPartialGuild[] };
 
     constructor(props: any) {
         super(props);
@@ -30,7 +32,7 @@ export default class Servers extends React.Component {
         DataServers.removeChangeListener(this.onChange);
     }
 
-    onChange(servers: GuildInfos[]) {
+    onChange(servers: APIPartialGuild[]) {
         this.setState({ servers });
     }
 
