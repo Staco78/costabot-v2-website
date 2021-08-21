@@ -17,7 +17,7 @@ export default class AccountLink extends React.Component {
     render() {
         return this.context ? (
             <Link className={css.container} to="/account">
-                <img className={css.avatar} src={`https://cdn.discordapp.com/avatars/${this.context.id}/${this.context.avatar}`}></img>
+                <img className={css.avatar} src={`https://cdn.discordapp.com/avatars/${this.context.id}/${this.context.avatar}.webp`}></img>
                 <div className={css.username}>{this.context.username}</div>
             </Link>
         ) : (

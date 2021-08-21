@@ -5,7 +5,7 @@ import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Account from "./account/account";
 import Header from "./header/header";
-import Server from "./servers/server";
+import Server from "./servers/server/server";
 import Servers from "./servers/serversList/servers";
 
 const authUrl = discordApiURL + "/oauth2/authorize?client_id=804826144297844776&redirect_uri=http%3A%2F%2Flocalhost%2Fredirect_auth&response_type=code&scope=identify+guilds";

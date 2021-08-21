@@ -1,12 +1,12 @@
 import Servers from "@/data/servers";
 import React from "react";
 import { withRouter } from "react-router-dom";
-import type { APIPartialGuild } from "discord-api-types";
+import Ranking from "./ranking";
 
 class Server extends React.Component {
     declare readonly props: { id: string };
 
-    readonly state: { serverData: APIPartialGuild | null; notFound: boolean };
+    readonly state: { serverData: ServerData | null; notFound: boolean };
 
     constructor(props: any) {
         super(props);
@@ -22,7 +22,11 @@ class Server extends React.Component {
         if (this.state.notFound) return <div>Server not found</div>;
         if (!this.state.serverData) return <div>Chargement...</div>;
 
-        return <div>{this.state.serverData.name}</div>;
+        return (
+            <div>
+                <Ranking server={this.state.serverData} />
+            </div>
+        );
     }
 }
 

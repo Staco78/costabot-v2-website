@@ -1,10 +1,11 @@
 import Client from "./client";
 
 import type { APIPartialGuild } from "discord-api-types";
-
+import Server from "./server";
 
 namespace Servers {
     export let servers: APIPartialGuild[] = [];
+    let detailledServers: Server[] = [];
     let onChangeListeners: ((server: APIPartialGuild[]) => void)[] = [];
 
     export let state: 0 | 1 | 2 = 0;
@@ -57,14 +58,22 @@ namespace Servers {
         onChangeListeners.splice(index);
     }
 
-    export async function get(id: string): Promise<APIPartialGuild> {
-        await waitUpdate();
+    export async function get(id: string): Promise<ServerData> {
+        let server = detailledServers.find(server => server.id === id);
 
-        const server = servers.find(server => server.id === id);
+        if (server) {
+            if (server.state === 0) await server.update();
+            else if (server.state === 1) await server.waitUpdate();
+        }
 
-        if (!server) throw new Error("Server not found");
+        if (!server) {
+            const newServer = new Server(id);
+            detailledServers.push(newServer);
+            await newServer.update();
+            server = newServer;
+        }
 
-        return server;
+        return server.server as ServerData;
     }
 }
 

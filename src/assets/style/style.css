@@ -8,7 +8,7 @@
 }
 
 body {
-    background-color: var(--primary-background);
+    background-color: var(--background);
 }
 
 a {
@@ -18,7 +18,11 @@ a {
 :root {
     --header_height: 5ch;
     --header-color: #23272a;
-    --primary-background: #2a2d2e;
-    --primary: #3e4049;
-    --primary-hover: #53555d;
+    --primary: #c813b0;
+    --primary-hover: #ef1ad3;
+    --background: #2a2d2e;
+    --background-hover: #53555d;
 }
+/* --primary-background: #2a2d2e;
+    --primary: #3e4049;
+    --primary-hover: #53555d; */
