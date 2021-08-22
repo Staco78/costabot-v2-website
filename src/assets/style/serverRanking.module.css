@@ -1,0 +1,17 @@
+:local(.row_container) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 2%;
+}
+
+:local(.row_left_container) {
+    display: flex;
+    align-items: center;
+}
+
+:local(.row_img) {
+    height: 60px;
+    border-radius: 50%;
+    margin-right: 25px;
+}

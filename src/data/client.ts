@@ -4,7 +4,6 @@ declare interface User extends APIUser {
     token: string;
 }
 
-
 namespace Client {
     let changeListeners: ((client: User) => void)[] = [];
     let client: User | null = null;
@@ -61,7 +60,9 @@ namespace Client {
     }
 
     async function getInfoFromDiscord(token: string): Promise<User> {
-        const response = await fetch("https://discord.com/api/v9/users/@me", { headers: { Authorization: `Bearer ${token}` } });
+        const response = await fetch("https://discord.com/api/v9/users/@me", {
+            headers: { Authorization: `Bearer ${token}` },
+        });
 
         if (response.status !== 200) {
             throw new Error("Discord unauthorized");

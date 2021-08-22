@@ -8,7 +8,11 @@ import Header from "./header/header";
 import Server from "./servers/server/server";
 import Servers from "./servers/serversList/servers";
 
-const authUrl = discordApiURL + "/oauth2/authorize?client_id=804826144297844776&redirect_uri=http%3A%2F%2Flocalhost%2Fredirect_auth&response_type=code&scope=identify+guilds";
+const redirect_uri = "http://staco-dev.fr/";
+
+const authUrl = `${discordApiURL}/oauth2/authorize?client_id=804826144297844776&${encodeURIComponent(
+    `redirect_uri=${redirect_uri}`
+)}&response_type=code&scope=identify+guilds`;
 
 import type { APIUser } from "discord-api-types";
 

@@ -1,5 +1,7 @@
 import React from "react";
 
+import css from "@/assets/style/serverRanking.module.css";
+
 export default class Ranking extends React.Component {
     declare readonly props: { server: ServerData };
 
@@ -9,10 +11,13 @@ export default class Ranking extends React.Component {
 
     render() {
         return (
-            <div>
-                {this.props.server.ranking.users.map(user => (
-                    <RankingRow user={user} key={user.id} />
-                ))}
+            <div style={{ marginTop: "40px", marginBottom: "20px", textAlign: "center" }}>
+                <h1>Classement</h1>
+                <div>
+                    {this.props.server.ranking.users.map(user => (
+                        <RankingRow user={user} key={user.id} />
+                    ))}
+                </div>
             </div>
         );
     }
@@ -27,9 +32,12 @@ class RankingRow extends React.Component {
 
     render() {
         return (
-            <div>
-                <img src={this.props.user.avatarURL} />
-                <div>{this.props.user.username}</div>
+            <div className={css.row_container}>
+                <div className={css.row_left_container}>
+                    <img className={css.row_img} src={this.props.user.avatarURL} />
+                    <div>{this.props.user.username}</div>
+                </div>
+                <div>{`Niveau ${this.props.user.lvl} avec ${this.props.user.xp} xp`}</div>
             </div>
         );
     }
