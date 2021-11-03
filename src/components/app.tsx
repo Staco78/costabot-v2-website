@@ -8,7 +8,7 @@ import Header from "./header/header";
 import Server from "./servers/server/server";
 import Servers from "./servers/serversList/servers";
 
-const authUrl = `${discordApiURL}/oauth2/authorize?client_id=804826144297844776&redirect_uri=${encodeURIComponent(
+const authUrl = `${discordApiURL}/oauth2/authorize?client_id=REPLACE_CLIENT_ID&redirect_uri=${encodeURIComponent(
     "REPLACE_REDIRECT_URL"
 )}&response_type=code&scope=identify+guilds`;
 
