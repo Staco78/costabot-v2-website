@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import css from "@/assets/style/header.module.css";
 import AccountLink from "./accountLink";

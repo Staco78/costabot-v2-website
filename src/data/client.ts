@@ -6,9 +6,11 @@ declare interface User extends APIUser {
 
 namespace Client {
     let changeListeners: ((client: User) => void)[] = [];
+    let errorListeners: ((error: Error) => void)[] = [];
     let client: User | null = null;
+    let error: Error | null = null;
 
-    export let state = 0;
+    export let state: 0 | 1 | 2 = 0;
 
     export function getInfos(): User | null {
         return client;
@@ -26,14 +28,34 @@ namespace Client {
         changeListeners.splice(index);
     }
 
+    export function addErrorListener(listener: (error: Error) => void) {
+        if (error) listener(error);
+        else errorListeners.push(listener);
+    }
+
+    function callErrorListeners(_error: Error) {
+        error = _error;
+        errorListeners.forEach(listener => listener(_error));
+        errorListeners = [];
+    }
+
     export async function update() {
         state = 1;
 
         const token = getTokenCookie();
 
-        if (!token) return;
+        if (!token) {
+            const error = new Error("Token not found");
+            callErrorListeners(error);
+            return;
+        }
 
-        const infos = await getInfoFromDiscord(token);
+        try {
+            var infos = await getInfoFromDiscord(token);
+        } catch (error: any) {
+            callErrorListeners(error);
+            return;
+        }
 
         client = infos;
 
@@ -43,12 +65,13 @@ namespace Client {
     }
 
     export function waitUpdate(): Promise<void> {
-        return new Promise(async resolve => {
+        return new Promise(async (resolve, reject) => {
             if (state === 0) {
-                update().then(resolve);
+                update().then(resolve).catch(reject);
             }
             if (state === 1) {
                 addChangeListener(listener);
+                addErrorListener(reject);
             }
             if (state === 2) resolve();
 

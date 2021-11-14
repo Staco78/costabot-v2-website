@@ -1,5 +1,3 @@
-import { clientContext } from "@/contexts";
-import Servers from "@/data/servers";
 import React from "react";
 
 export default class Account extends React.Component {

@@ -7,6 +7,8 @@ namespace Servers {
     export let servers: APIPartialGuild[] = [];
     let detailledServers: Server[] = [];
     let onChangeListeners: ((server: APIPartialGuild[]) => void)[] = [];
+    let errorListeners: ((error: Error) => void)[] = [];
+    let error: Error | null = null;
 
     export let state: 0 | 1 | 2 = 0;
 
@@ -16,7 +18,12 @@ namespace Servers {
         const client = Client.getInfos();
 
         if (!client) {
-            await Client.waitUpdate();
+            try {
+                await Client.waitUpdate();
+            } catch (error: any) {
+                callErrorListeners(error);
+                return error;
+            }
             return await update();
         }
 
@@ -29,7 +36,7 @@ namespace Servers {
     }
 
     export function waitUpdate(): Promise<void> {
-        return new Promise(async resolve => {
+        return new Promise(async (resolve, reject) => {
             if (state === 0) {
                 await update();
                 resolve();
@@ -56,6 +63,18 @@ namespace Servers {
         if (index === -1) throw new Error("Listener not found");
 
         onChangeListeners.splice(index);
+    }
+
+    export function addErrorListener(listener: (error: Error) => void) {
+        if (error) listener(error);
+        else errorListeners.push(listener);
+    }
+
+    function callErrorListeners(error: Error) {
+        errorListeners.forEach(listener => {
+            errorListeners.splice(errorListeners.indexOf(listener));
+            listener(error);
+        });
     }
 
     export async function get(id: string): Promise<ServerData> {
